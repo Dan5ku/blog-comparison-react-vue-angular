@@ -4,6 +4,8 @@
 
 In this blog, I will share my observations and experiences while building a simple To-Do app in three popular front-end frameworks: **React**, **Vue**, and **Angular**. I'll cover the differences in **project setup**, **component structure**, **state management**, **template syntax**, **performance**, and **community & ecosystem**.
 
+## Overview React vs Vue vs Angular
+
 When it comes to front-end development, **React**, **Vue**, and **Angular** are three of the most popular frameworks available today. While all three are powerful and widely used, they cater to slightly different needs and development philosophies. Here's a quick look at each framework:
 
 ### React
