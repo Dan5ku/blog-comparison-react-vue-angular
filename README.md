@@ -46,12 +46,72 @@ Although the files contain JSX syntax, you don’t need to name them .jsx. React
 Here's a simple React component for the To-Do app:
 
 ```jsx
-const Todo = () => (
-    <div>
-        <input />
-        <button>Add</button>
+import React, { useState } from 'react';
+import './TodoApp.css';  // Import the CSS file
+
+const TodoApp = () => {
+  const [task, setTask] = useState('');
+  const [tasks, setTasks] = useState([]);
+
+  const addTask = () => {
+    if (task) {
+      setTasks([...tasks, { text: task, completed: false }]);
+      setTask('');
+    }
+  };
+
+  const removeTask = (index) => {
+    const newTasks = tasks.filter((_, i) => i !== index);
+    setTasks(newTasks);
+  };
+
+  const toggleComplete = (index) => {
+    const newTasks = [...tasks];
+    newTasks[index].completed = !newTasks[index].completed;
+    setTasks(newTasks);
+  };
+
+  return (
+    <div className="todo-container">
+      <h1>Todo App</h1>
+      <div>
+        <input 
+          className="todo-input"
+          type="text" 
+          value={task} 
+          onChange={(e) => setTask(e.target.value)} 
+          placeholder="Enter a new task"
+        />
+        <button className="todo-button" onClick={addTask}>Add Task</button>
+      </div>
+      <ul>
+        {tasks.map((task, index) => (
+          <li key={index} className={task.completed ? 'completed' : ''}>
+            <span>{task.text}</span>
+            <div>
+              <button 
+                className="complete" 
+                onClick={() => toggleComplete(index)}
+              >
+                {task.completed ? 'Undo' : 'Complete'}
+              </button>
+              <button 
+                className="remove" 
+                onClick={() => removeTask(index)}
+              >
+                Remove
+              </button>
+            </div>
+          </li>
+        ))}
+      </ul>
     </div>
-);
+  );
+};
+
+export default TodoApp;
+
+
 ```
 React's component-based approach is straightforward and focuses on breaking down the UI into reusable pieces.
 
@@ -60,21 +120,155 @@ Vue components are defined using Single File Components (SFCs), where the templa
 
 ```vue
 <template>
+  <div class="todo-container">
+    <h1>Todo App</h1>
     <div>
-        <input />
-        <button>Add</button>
+      <input
+        type="text"
+        v-model="task"
+        @keyup.enter="addTask"
+        placeholder="Enter a new task"
+        class="todo-input"
+      />
+      <button @click="addTask" class="todo-button">Add Task</button>
     </div>
+    <ul>
+      <li v-for="(taskItem, index) in tasks" :key="index" :class="{ completed: taskItem.completed }">
+        <span>{{ taskItem.text }}</span>
+        <div>
+          <button @click="toggleComplete(index)" class="complete">
+            {{ taskItem.completed ? 'Undo' : 'Complete' }}
+          </button>
+          <button @click="removeTask(index)" class="remove">Remove</button>
+        </div>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
 export default {
-    name: 'Todo'
-}
+  data() {
+    return {
+      task: '',
+      tasks: []
+    };
+  },
+  methods: {
+    addTask() {
+      if (this.task) {
+        this.tasks.push({ text: this.task, completed: false });
+        this.task = ''; 
+      }
+    },
+    removeTask(index) {
+      this.tasks.splice(index, 1); 
+    },
+    toggleComplete(index) {
+      this.tasks[index].completed = !this.tasks[index].completed; 
+    }
+  }
+};
 </script>
 
 <style>
-/* CSS here */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+.todo-container {
+  max-width: 60%;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+.todo-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.todo-button {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.todo-button:hover {
+  background-color: #555;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  padding: 10px;
+  margin: 10px 0;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+li.completed span {
+  text-decoration: line-through;
+  color: #aaa;
+}
+
+li button {
+  margin-left: 10px;
+}
+
+li button.complete {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+li button.complete:hover {
+  background-color: #218838;
+}
+
+li button.remove {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+li button.remove:hover {
+  background-color: #c82333;
+}
 </style>
+
 ```
 Vue’s component structure is intuitive, especially for developers who prefer keeping HTML, JavaScript, and CSS together.
 
@@ -82,16 +276,67 @@ Vue’s component structure is intuitive, especially for developers who prefer k
 Angular components use a TypeScript-based structure with separate files for templates, logic, and styles. A typical component has a .ts, .html, and .css file:
 
 ```typescript
-// todo.component.ts
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
 @Component({
-    selector: 'app-todo',
-    templateUrl: './todo.component.html',
-    styleUrls: ['./todo.component.css']
+  selector: 'app-todo',
+  standalone: true,
+  imports: [CommonModule, FormsModule], 
+  templateUrl: './todo.component.html',
+  styleUrls: ['./todo.component.css']
 })
 export class TodoComponent {
-    // Logic here
+  task: string = '';
+  tasks: { text: string; completed: boolean }[] = [];
+
+  addTask() {
+    if (this.task) {
+      this.tasks.push({ text: this.task, completed: false });
+      this.task = '';  
+    }
+  }
+
+  removeTask(index: number) {
+    this.tasks.splice(index, 1); 
+  }
+
+  toggleComplete(index: number) {
+    this.tasks[index].completed = !this.tasks[index].completed; 
+  }
 }
+
 ```
+
+HTML file for the component (todo.component.html):
+```
+<div class="todo-container">
+    <h1>Todo App</h1>
+    <div>
+      <input
+        type="text"
+        [(ngModel)]="task"
+        placeholder="Enter a new task"
+        class="todo-input"
+      />
+      <button (click)="addTask()" class="todo-button">Add Task</button>
+    </div>
+    <ul>
+      <li *ngFor="let taskItem of tasks; let i = index" [ngClass]="{ 'completed': taskItem.completed }">
+        <span>{{ taskItem.text }}</span>
+        <div>
+          <button (click)="toggleComplete(i)" class="complete">
+            {{ taskItem.completed ? 'Undo' : 'Complete' }}
+          </button>
+          <button (click)="removeTask(i)" class="remove">Remove</button>
+        </div>
+      </li>
+    </ul>
+  </div>
+  
+```
+
 Angular’s structure is more verbose than React or Vue, with strict separation of concerns, which can be overkill for smaller projects but highly useful in large-scale applications.
 
 Conclusion:
@@ -106,7 +351,8 @@ Angular: More structured, great for large applications, but can feel verbose.
 React handles state internally using the useState hook or externally using libraries like Redux or Context API. Managing state in a small app like To-Do is simple:
 
 ```jsx
-const [tasks, setTasks] = useState([]);
+  const [task, setTask] = useState('');
+  const [tasks, setTasks] = useState([]);
 ```
 React’s ecosystem offers many external state management solutions, but none are provided by default.
 
@@ -116,26 +362,83 @@ Vue has a built-in state management system using Vuex for large applications, th
 ```javascript
 export default {
     data() {
-        return {
-            tasks: []
-        }
+      return {
+        task: '',     // Holds the value of the input field for new tasks
+        tasks: []     // An array that stores the list of tasks
+      };
     }
 }
 ```
 Vue’s reactivity system makes local state management simple and intuitive.
 
 ### Angular
-Angular uses services for managing state across components. This is a more complex but scalable solution. You can also use NgRx for more advanced state management, similar to Redux:
+In this example, Angular manages state through a service that encapsulates the logic for handling tasks. The `TodoService` is responsible for storing tasks, while the `TodoComponent` interacts with the service to manipulate and display the state. This approach separates concerns and makes the code modular and reusable.
 
+The `TodoService` holds the list of tasks and exposes methods to add, remove, and toggle tasks:
 ```typescript
 @Injectable({
     providedIn: 'root'
 })
 export class TodoService {
-    tasks = [];
+    tasks: { text: string; completed: boolean }[] = [];
+
+    addTask(task: string) {
+        this.tasks.push({ text: task, completed: false });
+    }
+
+    removeTask(index: number) {
+        this.tasks.splice(index, 1);
+    }
+
+    toggleComplete(index: number) {
+        this.tasks[index].completed = !this.tasks[index].completed;
+    }
+
+    getTasks() {
+        return this.tasks;
+    }
 }
 ```
-Angular’s state management is more rigid, but this brings benefits when scaling up.
+The `TodoComponent` uses the `TodoService` to interact with the tasks. It no longer manages the state directly but instead delegates the state management to the service:
+
+```
+import { Component } from '@angular/core';
+import { TodoService } from './todo.service';  // Import the service
+
+@Component({
+  selector: 'app-todo',
+  templateUrl: './todo.component.html',
+  styleUrls: ['./todo.component.css'],
+})
+export class TodoComponent {
+  task: string = '';
+
+  constructor(public todoService: TodoService) {}  // Inject the service
+
+  addTask() {
+    this.todoService.addTask(this.task);  // Delegate to the service
+    this.task = '';  // Clear the input field
+  }
+
+  removeTask(index: number) {
+    this.todoService.removeTask(index);  // Delegate to the service
+  }
+
+  toggleComplete(index: number) {
+    this.todoService.toggleComplete(index);  // Delegate to the service
+  }
+
+  get tasks() {
+    return this.todoService.getTasks();  // Access tasks via the service
+  }
+}
+```
+
+This approach of using a service for state management is a common practice in Angular, especially when state needs to be shared across multiple components or persisted in a centralized place.
+
+For larger applications with more complex state management needs, Angular developers often turn to NgRx, a library that provides a more robust and centralized way to manage state, similar to Redux. NgRx allows for predictable state management with actions, reducers, and effects, which is beneficial for complex data flows, but it also adds complexity and overhead.
+
+In this case, using a service for managing tasks is a simple yet scalable solution, well-suited for small to medium-sized apps.
 
 Conclusion:
 
@@ -146,27 +449,56 @@ Angular: Uses services and external libraries like NgRx for complex state manage
 ## 4. Template Syntax
 
 ### React
-React uses JSX, which mixes HTML with JavaScript. While powerful, it can feel a bit unnatural for developers used to separating their logic from the markup.
+React uses JSX, which mixes HTML with JavaScript, allowing you to manage the UI and logic in the same file. While this approach may initially feel unnatural for developers used to separating markup and logic, it has become the norm in React.
+
+Here’s an example from your `TodoApp` component:
 
 ```jsx
-<input value={task} onChange={e => setTask(e.target.value)} />
+<input 
+  className="todo-input"
+  type="text" 
+  value={task} 
+  onChange={(e) => setTask(e.target.value)} 
+  placeholder="Enter a new task"
+/>
 ```
+
+In this example, the `value` of the input is bound to the `task` state, and the `onChange` event updates the state when the user types in the input field. The logic is directly embedded in the JSX.
 
 ### Vue
-Vue uses a template syntax similar to traditional HTML, with Vue directives like v-if, v-for, and v-model:
+Vue uses a template syntax that’s closer to traditional HTML, with Vue directives like `v-model` for two-way data binding. Vue’s approach separates the template and logic, which some developers find more intuitive.
+
+Here’s an example from your Vue `TodoApp` component:
 
 ```html
-<input v-model="task" />
+<input
+  type="text"
+  v-model="task"
+  @keyup.enter="addTask"
+  placeholder="Enter a new task"
+  class="todo-input"
+/>
 ```
-This syntax is cleaner and feels more natural for developers coming from an HTML background.
+
+In this case, `v-model` binds the input’s value to the `task` data property, and the `@keyup.enter` directive allows you to add a task when the Enter key is pressed.
 
 ### Angular
-Angular uses Angular templates, which are HTML-based but have powerful features such as *ngIf, *ngFor, and two-way binding with [(ngModel)]:
+
+Angular templates are HTML-based but feature powerful directives like `*ngIf`, `*ngFor`, and two-way data binding with `[(ngModel)]`. This structure provides flexibility but can be more verbose than Vue's template syntax.
+
+Here’s an example from your Angular `TodoComponent`:
 
 ```html
-<input [(ngModel)]="task" />
+<input
+  type="text"
+  [(ngModel)]="task"
+  placeholder="Enter a new task"
+  class="todo-input"
+  aria-label="Task input"
+/>
+<button (click)="addTask()" class="todo-button" [disabled]="!task.trim()">Add Task</button>
 ```
-Angular templates feel more structured and powerful, but they can be a bit verbose compared to Vue's simplicity.
+In this example, `[(ngModel)]` binds the input to the `task` property, while `aria-label` improves accessibility. The button is disabled when the `task` input is empty or contains only whitespace.
 
 Conclusion:
 
