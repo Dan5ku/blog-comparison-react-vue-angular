@@ -2,6 +2,8 @@
 
 ![image](https://github.com/user-attachments/assets/08ab3629-0f3c-42f3-a080-a7b640379786)
 
+In this blog, I will share my observations and experiences while building a simple To-Do app in three popular front-end frameworks: **React**, **Vue**, and **Angular**. I'll cover the differences in **project setup**, **component structure**, **state management**, **template syntax**, **performance**, and **community & ecosystem**.
+
 When it comes to front-end development, **React**, **Vue**, and **Angular** are three of the most popular frameworks available today. While all three are powerful and widely used, they cater to slightly different needs and development philosophies. Here's a quick look at each framework:
 
 ### React
@@ -21,8 +23,6 @@ Vue is a **progressive framework** that offers a balanced mix of simplicity and 
 Angular is a **full-fledged front-end framework** developed by Google. It comes with everything you need right from the start, including a powerful **TypeScript-based structure, two-way data binding, routing, form handling**, and more. Angular’s architecture is designed for **large-scale applications**, making it more structured and opinionated than React or Vue. However, this comes at the cost of a steeper learning curve.
 
 **Best For**: Large-scale applications that require a comprehensive framework with built-in tools and a strong emphasis on scalability.
-
-In this blog, I will share my observations and experiences while building a simple To-Do app in three popular front-end frameworks: **React**, **Vue**, and **Angular**. I'll cover the differences in **project setup**, **component structure**, **state management**, **template syntax**, **performance**, and **community & ecosystem**.
 
 ## 1. Project Setup
 
