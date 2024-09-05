@@ -39,7 +39,11 @@ Angular: Heavier setup but includes everything you need from the start.
 ## 2. Component Structure
 
 ### React
-React components are written in JavaScript using JSX, a syntax extension that lets you mix HTML with JavaScript. Here's a simple React component for the To-Do app:
+React components are written in JavaScript using JSX, a syntax extension that lets you mix HTML with JavaScript. 
+
+Although the files contain JSX syntax, you don’t need to name them .jsx. React components can be stored in files with the .js extension, and it works perfectly fine. This is because JSX is just a syntax extension for JavaScript, and modern build tools (like Babel) automatically handle JSX within .js files.
+
+Here's a simple React component for the To-Do app:
 
 ```jsx
 const Todo = () => (
