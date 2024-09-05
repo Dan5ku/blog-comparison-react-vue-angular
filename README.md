@@ -1,6 +1,7 @@
 # React vs Vue vs Angular: A To-Do App Comparison
 
-![image](https://github.com/user-attachments/assets/609fa6a9-de56-4d9d-8e22-d0527781f215)
+![image](https://github.com/user-attachments/assets/08ab3629-0f3c-42f3-a080-a7b640379786)
+
 
 In this blog, I will share my observations and experiences while building a simple To-Do app in three popular front-end frameworks: **React**, **Vue**, and **Angular**. I'll cover the differences in **project setup**, **component structure**, **state management**, **template syntax**, **performance**, and **community & ecosystem**.
 
@@ -78,8 +79,7 @@ Vue 3 has native TypeScript support. When using the Vue CLI, you can select Type
 ```bash
 vue create vue-app
 ```
-
-![image](https://github.com/user-attachments/assets/223b0920-e489-4105-97c5-34646f9211db)
+![image](https://github.com/user-attachments/assets/609fa6a9-de56-4d9d-8e22-d0527781f215)
 
 Vue’s Composition API pairs well with TypeScript, making it easier to write and reuse typed logic across components.
 
