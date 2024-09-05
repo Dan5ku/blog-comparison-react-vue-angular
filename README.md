@@ -53,9 +53,13 @@ It generates a project structure with everything included—routing, state manag
 
 Conclusion:
 
-React: Simple, but requires additional packages for advanced features.
-Vue: More flexible with initial configuration options.
-Angular: Heavier setup but includes everything you need from the start.
+**React**: Simple, but requires additional packages for advanced features.  
+
+
+**Vue**: More flexible with initial configuration options.  
+
+
+**Angular**: Heavier setup but includes everything you need from the start.
 
 ## 1.5 TypeScript support
 
@@ -397,9 +401,13 @@ Angular’s structure is more verbose than React or Vue, with strict separation 
 
 Conclusion:
 
-React: Simple, focuses on JavaScript logic with JSX.
-Vue: Intuitive with Single File Components.
-Angular: More structured, great for large applications, but can feel verbose.
+**React**: Simple, focuses on JavaScript logic with JSX.
+
+
+**Vue**: Intuitive with Single File Components.
+
+
+**Angular**: More structured, great for large applications, but can feel verbose.
 
 ## 3. State Management
 
