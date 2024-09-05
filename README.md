@@ -10,7 +10,7 @@ In this blog, I will share my observations and experiences while building a simp
 ### React
 Setting up a React project is very straightforward, especially using `create-react-app`, which is optimized for a fast start with minimal configuration. Here's the command:
 ```bash
-npx create-react-app my-app
+npx create-react-app react-app
 ```
 This generates a fully-configured React project with everything you need, including a development server and build scripts. However, it doesn’t offer as much built-in functionality as Vue or Angular—routing, state management, and other advanced features need to be added separately.
 
@@ -18,7 +18,7 @@ This generates a fully-configured React project with everything you need, includ
 For Vue, I used the Vue CLI to scaffold the project. The Vue CLI offers a lot more options at the initial setup than React:
 
 ```bash
-vue create my-app
+vue create vue-app
 ```
 Vue’s project structure feels a bit more customizable from the start, allowing you to choose features like Vue Router and Vuex (state management) during setup. This gives more flexibility, but the initial process may feel overwhelming for beginners.
 
@@ -26,7 +26,7 @@ Vue’s project structure feels a bit more customizable from the start, allowing
 Angular's setup is more complex compared to React and Vue, primarily because Angular is a complete framework. Using the Angular CLI:
 
 ```bash
-ng new my-app
+ng new angular-app
 ```
 It generates a project structure with everything included—routing, state management (with services), and testing. While this setup provides a lot of tools out-of-the-box, it can feel heavy for smaller projects.
 
