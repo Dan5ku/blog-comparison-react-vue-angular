@@ -382,6 +382,7 @@ Vue’s reactivity system makes local state management simple and intuitive.
 In this example, Angular manages state through a service that encapsulates the logic for handling tasks. The `TodoService` is responsible for storing tasks, while the `TodoComponent` interacts with the service to manipulate and display the state. This approach separates concerns and makes the code modular and reusable.
 
 The `TodoService` holds the list of tasks and exposes methods to add, remove, and toggle tasks:
+
 ```typescript
 @Injectable({
     providedIn: 'root'
@@ -408,7 +409,7 @@ export class TodoService {
 ```
 The `TodoComponent` uses the `TodoService` to interact with the tasks. It no longer manages the state directly but instead delegates the state management to the service:
 
-```
+```html
 import { Component } from '@angular/core';
 import { TodoService } from './todo.service';  // Import the service
 
