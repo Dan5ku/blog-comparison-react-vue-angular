@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-todo',
   standalone: true,
-  imports: [CommonModule, FormsModule],  // Import FormsModule here
+  imports: [CommonModule, FormsModule], 
   templateUrl: './todo.component.html',
   styleUrls: ['./todo.component.css']
 })
@@ -16,15 +16,15 @@ export class TodoComponent {
   addTask() {
     if (this.task) {
       this.tasks.push({ text: this.task, completed: false });
-      this.task = '';  // Clear the input field
+      this.task = '';  
     }
   }
 
   removeTask(index: number) {
-    this.tasks.splice(index, 1);  // Remove the task at the given index
+    this.tasks.splice(index, 1); 
   }
 
   toggleComplete(index: number) {
-    this.tasks[index].completed = !this.tasks[index].completed;  // Toggle task completion
+    this.tasks[index].completed = !this.tasks[index].completed; 
   }
 }
