@@ -275,6 +275,8 @@ Vue’s component structure is intuitive, especially for developers who prefer k
 ### Angular
 Angular components use a TypeScript-based structure with separate files for templates, logic, and styles. A typical component has a .ts, .html, and .css file:
 
+todo.component.ts
+
 ```typescript
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -288,40 +290,46 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./todo.component.css']
 })
 export class TodoComponent {
-  task: string = '';
-  tasks: { text: string; completed: boolean }[] = [];
+  task: string = '';  // Holds the current task input
+  tasks: { text: string; completed: boolean }[] = [];  // Array of tasks
 
+  // Adds a new task to the list
   addTask() {
-    if (this.task) {
-      this.tasks.push({ text: this.task, completed: false });
-      this.task = '';  
+    if (this.task.trim()) {  // Ensure input is not empty or whitespace
+      this.tasks.push({ text: this.task.trim(), completed: false });
+      this.task = '';  // Clear the input field
     }
   }
 
+  // Removes a task from the list
   removeTask(index: number) {
-    this.tasks.splice(index, 1); 
+    this.tasks.splice(index, 1);  // Remove task at the specified index
   }
 
+  // Toggles the completion status of a task
   toggleComplete(index: number) {
-    this.tasks[index].completed = !this.tasks[index].completed; 
+    this.tasks[index].completed = !this.tasks[index].completed;
   }
 }
-
 ```
 
 HTML file for the component (todo.component.html):
-```
+
+```html
 <div class="todo-container">
     <h1>Todo App</h1>
+    
     <div>
       <input
         type="text"
         [(ngModel)]="task"
         placeholder="Enter a new task"
         class="todo-input"
+        aria-label="Task input"
       />
-      <button (click)="addTask()" class="todo-button">Add Task</button>
+      <button (click)="addTask()" class="todo-button" [disabled]="!task.trim()">Add Task</button>
     </div>
+    
     <ul>
       <li *ngFor="let taskItem of tasks; let i = index" [ngClass]="{ 'completed': taskItem.completed }">
         <span>{{ taskItem.text }}</span>
@@ -333,8 +341,7 @@ HTML file for the component (todo.component.html):
         </div>
       </li>
     </ul>
-  </div>
-  
+</div>
 ```
 
 Angular’s structure is more verbose than React or Vue, with strict separation of concerns, which can be overkill for smaller projects but highly useful in large-scale applications.
