@@ -57,7 +57,7 @@ Angular: Heavier setup but includes everything you need from the start.
 
 ## 1.5 TypeScript support
 
-Because TS is widely used development language and is finding more attraction all the time I thought i could add mention about the difference of using it in the different frameworks
+Since TypeScript is becoming increasingly popular and widely adopted in modern development, I wanted to highlight how each framework handles TypeScript integration and the differences you might encounter when using it.
 
 ### React
 
