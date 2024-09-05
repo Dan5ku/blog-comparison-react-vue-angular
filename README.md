@@ -2,6 +2,25 @@
 
 ![image](https://github.com/user-attachments/assets/08ab3629-0f3c-42f3-a080-a7b640379786)
 
+When it comes to front-end development, **React**, **Vue**, and **Angular** are three of the most popular frameworks available today. While all three are powerful and widely used, they cater to slightly different needs and development philosophies. Here's a quick look at each framework:
+
+### React
+
+React is a **JavaScript library** developed by Facebook that focuses on building UI components. Its **component-based architecture** and the use of **JSX** make it very flexible and easy to integrate with other libraries or frameworks. However, it’s not a full-fledged framework, meaning features like routing and state management typically require additional libraries (e.g., React Router, Redux).
+
+**Best For**: Developers looking for flexibility, a massive ecosystem, and integration with other technologies.
+
+### Vue
+
+Vue is a **progressive framework** that offers a balanced mix of simplicity and power. It’s designed to be easy to integrate into existing projects and also offers a component-based architecture similar to React. However, Vue provides more **out-of-the-box** features, such as routing and state management, making it more suitable for s**mall to medium-sized applications** without needing many external libraries.
+
+**Best For**: Developers looking for an approachable framework that combines the flexibility of React with more built-in features.
+
+### Angular
+
+Angular is a **full-fledged front-end framework** developed by Google. It comes with everything you need right from the start, including a powerful **TypeScript-based structure, two-way data binding, routing, form handling**, and more. Angular’s architecture is designed for **large-scale applications**, making it more structured and opinionated than React or Vue. However, this comes at the cost of a steeper learning curve.
+
+**Best For**: Large-scale applications that require a comprehensive framework with built-in tools and a strong emphasis on scalability.
 
 In this blog, I will share my observations and experiences while building a simple To-Do app in three popular front-end frameworks: **React**, **Vue**, and **Angular**. I'll cover the differences in **project setup**, **component structure**, **state management**, **template syntax**, **performance**, and **community & ecosystem**.
 
@@ -35,6 +54,36 @@ Conclusion:
 React: Simple, but requires additional packages for advanced features.
 Vue: More flexible with initial configuration options.
 Angular: Heavier setup but includes everything you need from the start.
+
+## 1.5 TypeScript support
+
+Because TS is widely used development language and is finding more attraction all the time I thought i could add mention about the difference of using it in the different frameworks
+
+### React
+
+TypeScript is fully supported in React, but you need to configure it manually during setup. You can create a React project with TypeScript by using the following command:
+
+```bash
+npx create-react-app my-app --template typescript
+```
+
+This command scaffolds a React project with TypeScript configuration files and static typing out-of-the-box. Although React is primarily a JavaScript library, TypeScript helps catch errors early and enhances developer tooling, especially for larger projects.
+
+### Vue
+
+Vue 3 has native TypeScript support. When using the Vue CLI, you can select TypeScript during the setup process. This ensures that your Vue project is fully equipped for type-safe development from the start. To create a Vue project with TypeScript, use:
+
+```bash
+vue create vue-app
+```
+
+![image](https://github.com/user-attachments/assets/223b0920-e489-4105-97c5-34646f9211db)
+
+Vue’s Composition API pairs well with TypeScript, making it easier to write and reuse typed logic across components.
+
+### Angular
+
+Angular is built entirely with TypeScript out-of-the-box, which is one of its key advantages. There's no additional setup needed for TypeScript since Angular was designed with it from the ground up. This makes Angular a great choice for teams that prioritize type safety, tooling, and scalability.
 
 ## 2. Component Structure
 
