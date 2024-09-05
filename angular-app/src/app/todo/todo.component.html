@@ -1,0 +1,24 @@
+<div class="todo-container">
+    <h1>Todo App</h1>
+    <div>
+      <input
+        type="text"
+        [(ngModel)]="task"
+        placeholder="Enter a new task"
+        class="todo-input"
+      />
+      <button (click)="addTask()" class="todo-button">Add Task</button>
+    </div>
+    <ul>
+      <li *ngFor="let taskItem of tasks; let i = index" [ngClass]="{ 'completed': taskItem.completed }">
+        <span>{{ taskItem.text }}</span>
+        <div>
+          <button (click)="toggleComplete(i)" class="complete">
+            {{ taskItem.completed ? 'Undo' : 'Complete' }}
+          </button>
+          <button (click)="removeTask(i)" class="remove">Remove</button>
+        </div>
+      </li>
+    </ul>
+  </div>
+  
