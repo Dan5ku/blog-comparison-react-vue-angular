@@ -1,5 +1,8 @@
 # React vs Vue vs Angular: A To-Do App Comparison
 
+![image](https://github.com/user-attachments/assets/08ab3629-0f3c-42f3-a080-a7b640379786)
+
+
 In this blog, I will share my observations and experiences while building a simple To-Do app in three popular front-end frameworks: **React**, **Vue**, and **Angular**. I'll cover the differences in **project setup**, **component structure**, **state management**, **template syntax**, **performance**, and **community & ecosystem**.
 
 ## 1. Project Setup
