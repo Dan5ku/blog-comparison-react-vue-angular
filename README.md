@@ -568,9 +568,13 @@ In this example, `[(ngModel)]` binds the input to the `task` property, while `ar
 
 Conclusion:
 
-React: JSX offers flexibility but may feel less intuitive for HTML developers.
-Vue: Clean and easy-to-read template syntax.
-Angular: Powerful but more complex syntax with detailed features.
+**React**: JSX offers flexibility but may feel less intuitive for HTML developers.
+
+
+**Vue**: Clean and easy-to-read template syntax.
+
+
+**Angular**: Powerful but more complex syntax with detailed features.
 
 ## 5. Performance
 
