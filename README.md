@@ -81,9 +81,6 @@ vue create vue-app
 
 ![image](https://github.com/user-attachments/assets/792bc9f3-5c5a-4d91-a156-43ed5f107675)
 
-
-Vue’s Composition API pairs well with TypeScript, making it easier to write and reuse typed logic across components.
-
 ### Angular
 
 Angular is built entirely with TypeScript out-of-the-box, which is one of its key advantages. There's no additional setup needed for TypeScript since Angular was designed with it from the ground up. This makes Angular a great choice for teams that prioritize type safety, tooling, and scalability.
