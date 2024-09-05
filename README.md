@@ -407,9 +407,10 @@ export class TodoService {
     }
 }
 ```
+
 The `TodoComponent` uses the `TodoService` to interact with the tasks. It no longer manages the state directly but instead delegates the state management to the service:
 
-```html
+```typescript
 import { Component } from '@angular/core';
 import { TodoService } from './todo.service';  // Import the service
 
