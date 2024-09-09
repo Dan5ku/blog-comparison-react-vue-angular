@@ -34,6 +34,9 @@ Setting up a React project is very straightforward, especially using `create-rea
 ```bash
 npx create-react-app react-app
 ```
+
+![image](https://github.com/user-attachments/assets/8f0437aa-913c-4a38-8372-d15306893474)
+
 This generates a fully-configured React project with everything you need, including a development server and build scripts. However, it doesn’t offer as much built-in functionality as Vue or Angular—routing, state management, and other advanced features need to be added separately.
 
 ### Vue
@@ -42,6 +45,9 @@ For Vue, I used the Vue CLI to scaffold the project. The Vue CLI offers a lot mo
 ```bash
 vue create vue-app
 ```
+
+![image](https://github.com/user-attachments/assets/e696cd57-f5f3-451f-a47a-85fb1a2bc211)
+
 Vue’s project structure feels a bit more customizable from the start, allowing you to choose features like Vue Router and Vuex (state management) during setup. This gives more flexibility, but the initial process may feel overwhelming for beginners.
 
 ### Angular
@@ -50,6 +56,9 @@ Angular's setup is more complex compared to React and Vue, primarily because Ang
 ```bash
 ng new angular-app
 ```
+
+![image](https://github.com/user-attachments/assets/a7fb7711-3002-434b-9a8d-185386fc903b)
+
 It generates a project structure with everything included—routing, state management (with services), and testing. While this setup provides a lot of tools out-of-the-box, it can feel heavy for smaller projects.
 
 ### Conclusion:
@@ -327,45 +336,50 @@ li button.remove:hover {
 Vue’s component structure is intuitive, especially for developers who prefer keeping HTML, JavaScript, and CSS together.
 
 ### Angular
-Angular components use a TypeScript-based structure with separate files for templates, logic, and styles. A typical component has a .ts, .html, and .css file:
+Angular components use a TypeScript-based structure, and as of Angular's latest versions, it also supports Signals for state management. Originally I planned to use RxJs and services in the project but after some reading I wanted to test out signals. Here's version of Angular’s To-Do component using signals instead of services:
 
 todo.component.ts
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-todo',
   standalone: true,
-  imports: [CommonModule, FormsModule], 
+  imports: [CommonModule, FormsModule],
   templateUrl: './todo.component.html',
   styleUrls: ['./todo.component.css']
 })
 export class TodoComponent {
-  task: string = '';  // Holds the current task input
-  tasks: { text: string; completed: boolean }[] = [];  // Array of tasks
+  task = signal('');  // Signal for task input
+  tasks = signal<{ text: string; completed: boolean }[]>([]);
 
-  // Adds a new task to the list
   addTask() {
-    if (this.task.trim()) {  // Ensure input is not empty or whitespace
-      this.tasks.push({ text: this.task.trim(), completed: false });
-      this.task = '';  // Clear the input field
+    const taskValue = this.task();
+    if (taskValue.trim()) {
+      this.tasks.update(tasks => [...tasks, { text: taskValue.trim(), completed: false }]);
+      this.task.set('');  // Clear input after adding task
     }
   }
 
-  // Removes a task from the list
   removeTask(index: number) {
-    this.tasks.splice(index, 1);  // Remove task at the specified index
+    this.tasks.update(tasks => tasks.filter((_, i) => i !== index));
   }
 
-  // Toggles the completion status of a task
   toggleComplete(index: number) {
-    this.tasks[index].completed = !this.tasks[index].completed;
+    this.tasks.update(tasks =>
+      tasks.map((task, i) =>
+        i === index ? { ...task, completed: !task.completed } : task
+      )
+    );
   }
 }
+
 ```
+
+Angular's new Signals approach makes state management simpler, reducing the need for RxJS and services in smaller components.
 
 HTML file for the component (todo.component.html):
 
@@ -397,6 +411,8 @@ HTML file for the component (todo.component.html):
     </ul>
 </div>
 ```
+
+And 
 
 Angular’s structure is more verbose than React or Vue, with strict separation of concerns, which can be overkill for smaller projects but highly useful in large-scale applications.
 
@@ -439,75 +455,54 @@ export default {
 Vue’s reactivity system makes local state management simple and intuitive.
 
 ### Angular
-In this example, Angular manages state through a service that encapsulates the logic for handling tasks. The `TodoService` is responsible for storing tasks, while the `TodoComponent` interacts with the service to manipulate and display the state. This approach separates concerns and makes the code modular and reusable.
+In this example, Angular manages state using the new **Signals** state management system instead of traditional services with **RxJS** or simple arrays. **Signals** are a reactive primitive introduced in Angular that simplify state management by automatically tracking dependencies and triggering reactivity when the state changes, similar to **Vue’s reactivity system**.
 
-The `TodoService` holds the list of tasks and exposes methods to add, remove, and toggle tasks:
+Rather than relying on a service to manage the state, we now embed the state directly within the component using signals, making it easier to manage local state while keeping the app reactive.
 
-```typescript
-@Injectable({
-    providedIn: 'root'
-})
-export class TodoService {
-    tasks: { text: string; completed: boolean }[] = [];
-
-    addTask(task: string) {
-        this.tasks.push({ text: task, completed: false });
-    }
-
-    removeTask(index: number) {
-        this.tasks.splice(index, 1);
-    }
-
-    toggleComplete(index: number) {
-        this.tasks[index].completed = !this.tasks[index].completed;
-    }
-
-    getTasks() {
-        return this.tasks;
-    }
-}
-```
-
-The `TodoComponent` uses the `TodoService` to interact with the tasks. It delegates the state management to the service:
+Here’s how the updated ```TodoComponent``` works with Signals:
 
 ```typescript
-import { Component } from '@angular/core';
-import { TodoService } from './todo.service';  // Import the service
-
-@Component({
-  selector: 'app-todo',
-  templateUrl: './todo.component.html',
-  styleUrls: ['./todo.component.css'],
-})
 export class TodoComponent {
-  task: string = '';
+  // Signal to hold the current input value
+  task = signal('');  
 
-  constructor(public todoService: TodoService) {}  // Inject the service
+  // Signal to hold the list of tasks
+  tasks = signal<{ text: string; completed: boolean }[]>([]);  
 
+  // Add a task and update the signal
   addTask() {
-    this.todoService.addTask(this.task);  // Delegate to the service
-    this.task = '';  // Clear the input field
+    const taskValue = this.task();
+    if (taskValue.trim()) {
+      this.tasks.update(tasks => [...tasks, { text: taskValue.trim(), completed: false }]);
+      this.task.set('');  // Clear input after adding a task
+    }
   }
 
+  // Remove a task by index and update the signal
   removeTask(index: number) {
-    this.todoService.removeTask(index);  // Delegate to the service
+    this.tasks.update(tasks => tasks.filter((_, i) => i !== index));
   }
 
+  // Toggle task completion by index and update the signal
   toggleComplete(index: number) {
-    this.todoService.toggleComplete(index);  // Delegate to the service
-  }
-
-  get tasks() {
-    return this.todoService.getTasks();  // Access tasks via the service
+    this.tasks.update(tasks =>
+      tasks.map((task, i) =>
+        i === index ? { ...task, completed: !task.completed } : task
+      )
+    );
   }
 }
 ```
 
-This approach of using a service for state management is a common practice in Angular, especially when state needs to be shared across multiple components or persisted in a centralized place.
+### Why Use Signals Over Services with RxJS?
+Angular’s **Signals** introduce a simpler, more lightweight way of managing state. Signals automatically track which values need to be updated based on state changes, reducing the need to manually subscribe to and manage observables, as is common with **RxJS**.
 
-For larger applications with more complex state management needs, Angular developers often turn to NgRx, a library that provides a more robust and centralized way to manage state, similar to Redux. NgRx allows for predictable state management with actions, reducers, and effects, which is beneficial for complex data flows, but it also adds complexity and overhead.
+This approach eliminates boilerplate code, and it automatically keeps the UI in sync with the underlying state without needing an explicit service to handle the state changes. **Signals** are ideal for simpler applications or local component state where the complexity of RxJS or a global store like **NgRx** is unnecessary.
 
-In this case, using a service for managing tasks is a simple yet scalable solution, well-suited for small to medium-sized apps.
+When to Use RxJS or Services?
+For more complex state management across multiple components or where side effects and asynchronous data streams need to be handled, RxJS and services still have a place. In larger applications, if you need to share state globally or handle asynchronous actions like HTTP requests, **RxJS** streams or **NgRx** (a Redux-like state management library for Angular) remain powerful tools.
+
+In this case, using signals simplifies local state management, making the code more maintainable for small to medium-sized apps.
 
 ### Conclusion:
 
@@ -517,7 +512,7 @@ In this case, using a service for managing tasks is a simple yet scalable soluti
 **Vue**: Offers Vuex for large applications, built-in reactivity for smaller apps.
 
 
-**Angular**: Uses services and external libraries like NgRx for complex state management.
+Angular: Uses **Signals** for simplified state management in smaller apps, and can still utilize services and external libraries like **NgRx** for more complex state management.
 
 ## 4. Template Syntax
 
@@ -624,6 +619,30 @@ Ultimately, the right choice depends on the specific needs of your project. For 
 
 This blog post captures my experience building the same app across these three frameworks. Hopefully, this provides a clearer picture of which framework might suit your next project!
 
-### Terminology
+## Key Terms and Concepts
 
-**Virtaul DOM**: The Virtual DOM (VDOM) is a lightweight, in-memory representation of the real DOM (Document Object Model). It is a key concept in modern JavaScript libraries and frameworks like React and Vue, which use it to optimize and enhance the performance of web applications.
+**Virtaul DOM**: Is a lightweight, in-memory representation of the real DOM (Document Object Model). It is a key concept in modern JavaScript libraries and frameworks like React and Vue, which use it to optimize and enhance the performance of web applications.
+
+**JSX**: Stands for **JavaScript XML**, and it is a syntax extension for JavaScript used in React. It allows developers to write HTML-like code directly within JavaScript, which React then transforms into JavaScript for rendering in the DOM.
+
+**Reactivity System**: A system where changes to the application’s state automatically trigger updates to the UI. In Vue, this is achieved through reactive properties that track dependencies and update the DOM as needed.
+
+**Two-Way Data Binding**: A feature in Angular (and Vue with ```v-model```) where changes in the UI (such as input fields) automatically update the model, and changes in the model update the UI, keeping them in sync.
+
+**State Management**: Refers to how the application stores and manages the data that components need. In React, state is managed locally using hooks like useState, or globally with libraries like Redux or Context API. In Vue, this can be done using Vuex, and in Angular, state management can be handled with services or with NgRx for more complex cases.
+
+**Hooks** (React): Are special functions introduced in React 16.8 that let you use state and other React features in functional components. Examples include useState (for managing state) and useEffect (for managing side effects).
+
+**Single File Component (SFC)** (Vue): A structure encapsulates the template (HTML), logic (JavaScript), and styles (CSS) in one .vue file, making it easy to manage and maintain components in one place.
+
+**NgRx** (Angular): Is a state management library for Angular based on the Redux pattern. It helps manage and centralize application state, making state changes predictable and improving the ability to handle complex data flows.
+
+**Tree Shaking**: A technique used by JavaScript bundlers like Webpack to eliminate unused code from the final bundle, reducing the size of the application and improving performance.
+
+**Ahead-of-Time (AOT) Compilation**: Is a build optimization used in Angular, where templates and components are compiled during the build process rather than at runtime. This reduces runtime overhead and improves performance.
+
+**Props** (React): In React, props (short for "properties") are the mechanism for passing data from a parent component to a child component. They are immutable, meaning they cannot be changed by the receiving component.
+
+**Directives** (Vue and Angular): Are special tokens in the template language that add behavior to the HTML elements. For example, v-model in Vue and *ngFor or *ngIf in Angular are directives that help bind data or control element rendering.
+
+**NgModel** (Angular): Is a directive in Angular used for two-way data binding in form controls. It connects the UI with the model, allowing both to stay synchronized.
