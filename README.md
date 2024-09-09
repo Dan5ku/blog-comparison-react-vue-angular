@@ -166,7 +166,7 @@ export default TodoApp;
 
 
 ```
-React's component-based approach is straightforward and focuses on breaking down the UI into reusable pieces.
+React's component-based approach is straightforward and focuses on breaking down the UI into reusable pieces. The styles are imported from seperate file which is visible in the top part of the code.
 
 ### Vue
 Vue components are defined using Single File Components (SFCs), where the template, script, and style are in a single .vue file. This structure is easy to understand and keeps everything related to a component in one file.
