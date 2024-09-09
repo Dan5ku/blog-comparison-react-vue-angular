@@ -1,24 +1,44 @@
 <div class="todo-container">
-    <h1>Todo App</h1>
-    <div>
-      <input
-        type="text"
-        [(ngModel)]="task"
-        placeholder="Enter a new task"
-        class="todo-input"
-      />
-      <button (click)="addTask()" class="todo-button">Add Task</button>
-    </div>
-    <ul>
-      <li *ngFor="let taskItem of tasks; let i = index" [ngClass]="{ 'completed': taskItem.completed }">
-        <span>{{ taskItem.text }}</span>
-        <div>
-          <button (click)="toggleComplete(i)" class="complete">
-            {{ taskItem.completed ? 'Undo' : 'Complete' }}
-          </button>
-          <button (click)="removeTask(i)" class="remove">Remove</button>
-        </div>
-      </li>
-    </ul>
+  <h1>Todo App</h1>
+
+  <div>
+    <input
+      type="text"
+      [ngModel]="task()" 
+      (ngModelChange)="task.set($event)"  
+      placeholder="Enter a new task"
+      class="todo-input"
+      aria-label="Task input"
+    />
+    <button 
+      (click)="addTask()" 
+      class="todo-button" 
+      [disabled]="!task().trim()" 
+      aria-label="Add task"
+    >
+      Add Task
+    </button>
   </div>
-  
+
+  <ul>
+    <li *ngFor="let taskItem of tasks(); let i = index" [ngClass]="{ 'completed': taskItem.completed }">
+      <span>{{ taskItem.text }}</span>
+      <div>
+        <button 
+          (click)="toggleComplete(i)" 
+          class="complete" 
+          [attr.aria-label]="'Toggle completion of task ' + (i + 1)"
+        >
+          {{ taskItem.completed ? 'Undo' : 'Complete' }}
+        </button>
+        <button 
+          (click)="removeTask(i)" 
+          class="remove" 
+          [attr.aria-label]="'Remove task ' + (i + 1)"
+        >
+          Remove
+        </button>
+      </div>
+    </li>
+  </ul>
+</div>

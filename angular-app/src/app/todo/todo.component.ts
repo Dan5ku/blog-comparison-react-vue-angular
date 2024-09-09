@@ -1,30 +1,35 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-todo',
-  standalone: true,
+  standalone: true,  
   imports: [CommonModule, FormsModule], 
   templateUrl: './todo.component.html',
   styleUrls: ['./todo.component.css']
 })
 export class TodoComponent {
-  task: string = '';
-  tasks: { text: string; completed: boolean }[] = [];
+  task = signal(''); 
+  tasks = signal<{ text: string; completed: boolean }[]>([]); 
 
   addTask() {
-    if (this.task) {
-      this.tasks.push({ text: this.task, completed: false });
-      this.task = '';  
+    const taskValue = this.task();
+    if (taskValue.trim()) {
+      this.tasks.update(tasks => [...tasks, { text: taskValue.trim(), completed: false }]);
+      this.task.set('');  
     }
   }
 
   removeTask(index: number) {
-    this.tasks.splice(index, 1); 
+    this.tasks.update(tasks => tasks.filter((_, i) => i !== index));
   }
 
   toggleComplete(index: number) {
-    this.tasks[index].completed = !this.tasks[index].completed; 
+    this.tasks.update(tasks =>
+      tasks.map((task, i) =>
+        i === index ? { ...task, completed: !task.completed } : task
+      )
+    );
   }
 }
