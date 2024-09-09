@@ -1,6 +1,7 @@
 # React vs Vue vs Angular: A To-Do App Comparison
 
-![image](https://github.com/user-attachments/assets/08ab3629-0f3c-42f3-a080-a7b640379786)
+![Näyttökuva 2024-09-09 133336](https://github.com/user-attachments/assets/427eb527-cd93-4fdd-8c7f-a59b38376456)
+
 
 In this blog, I will share my observations and experiences while building a simple To-Do app in three popular front-end frameworks: **React**, **Vue**, and **Angular**. I'll cover the differences in **project setup**, **component structure**, **state management**, **template syntax**, **performance**, and **community & ecosystem**.
 
@@ -51,7 +52,7 @@ ng new angular-app
 ```
 It generates a project structure with everything included—routing, state management (with services), and testing. While this setup provides a lot of tools out-of-the-box, it can feel heavy for smaller projects.
 
-Conclusion:
+### Conclusion:
 
 **React**: Simple, but requires additional packages for advanced features.  
 
@@ -399,7 +400,7 @@ HTML file for the component (todo.component.html):
 
 Angular’s structure is more verbose than React or Vue, with strict separation of concerns, which can be overkill for smaller projects but highly useful in large-scale applications.
 
-Conclusion:
+### Conclusion:
 
 **React**: Simple, focuses on JavaScript logic with JSX.
 
@@ -421,7 +422,9 @@ React handles state internally using the useState hook or externally using libra
 React’s ecosystem offers many external state management solutions, but none are provided by default.
 
 ### Vue
-Vue has a built-in state management system using Vuex for large applications, though for small projects, local state is managed with reactive properties:
+Vue provides a state management solution called **Vuex**, which is ideal for large applications that require a centralized state. To install Vuex, use the following command: ```bash npm install vuex``` Vuex allows you to manage state across your entire application through a **Vuex Store**, which handles **state**, **mutations**, **actions**, and **getters**. This is particularly useful when multiple components need to share and modify the same data. However, for smaller projects, as this project, local state is often sufficient and is typically managed with reactive properties within individual components.
+
+**Local state handling**:
 
 ```javascript
 export default {
@@ -465,7 +468,7 @@ export class TodoService {
 }
 ```
 
-The `TodoComponent` uses the `TodoService` to interact with the tasks. It no longer manages the state directly but instead delegates the state management to the service:
+The `TodoComponent` uses the `TodoService` to interact with the tasks. It delegates the state management to the service:
 
 ```typescript
 import { Component } from '@angular/core';
@@ -506,7 +509,7 @@ For larger applications with more complex state management needs, Angular develo
 
 In this case, using a service for managing tasks is a simple yet scalable solution, well-suited for small to medium-sized apps.
 
-Conclusion:
+### Conclusion:
 
 **React**: Flexible but relies on external solutions for large apps.
 
@@ -570,7 +573,7 @@ Here’s an example from your Angular `TodoComponent`:
 ```
 In this example, `[(ngModel)]` binds the input to the `task` property, while `aria-label` improves accessibility. The button is disabled when the `task` input is empty or contains only whitespace.
 
-Conclusion:
+### Conclusion:
 
 **React**: JSX offers flexibility but may feel less intuitive for HTML developers.
 
@@ -583,15 +586,15 @@ Conclusion:
 ## 5. Performance
 
 ### React
-React is known for its performance due to the Virtual DOM and efficient re-rendering. It’s fast but requires careful optimization for complex apps (e.g., shouldComponentUpdate, memoization).
+React is known for its performance due to the **Virtual DOM**, which minimizes direct interactions with the actual DOM by only re-rendering parts of the UI that have changed. For complex applications, developers often use optimizations like ```shouldComponentUpdate``` (a lifecycle method that controls when a component should re-render) and **memoization** (caching the results of expensive operations to prevent unnecessary re-computation).
 
 ### Vue
-Vue also uses a Virtual DOM and is highly optimized for performance. Vue’s reactive system makes it fast by default, and there’s little overhead even in larger apps.
+Vue also uses a **Virtual DOM** to efficiently update only the parts of the UI that change. Its **reactive system** automatically tracks changes to data and updates the DOM as needed. This system makes Vue fast by default, with little manual optimization required, even in larger applications.
 
 ### Angular
-Angular is powerful but heavier compared to React and Vue due to its two-way data binding and full-featured framework. However, with Ahead-of-Time (AOT) compilation and tree shaking, Angular apps can be highly performant.
+Angular is a **full-featured framework** and is heavier than React and Vue due to its use of **two-way data binding**, which synchronizes the UI and model automatically. However, Angular apps can be highly performant by using **Ahead-of-Time (AOT) compilation**, which precompiles templates and reduces runtime overhead, and **tree shaking**, which removes unused code during the build process, resulting in smaller and faster applications.
 
-Conclusion:
+### Conclusion:
 
 **React**: Excellent performance with a focus on efficiency.
 
@@ -607,25 +610,20 @@ Conclusion:
 React has a massive community and ecosystem, with extensive third-party libraries, plugins, and tools. It’s widely adopted by large companies, making it a strong choice for both small and enterprise-level projects.
 
 ### Vue
-Vue’s community is smaller than React’s but growing rapidly. It has a dedicated and passionate user base, with a strong ecosystem of official tools (Vue Router, Vuex). Vue is popular among developers looking for a more flexible and beginner-friendly framework.
+Vue’s community is smaller than React’s but growing rapidly. It has a dedicated and passionate user base, with a strong ecosystem of official tools (Vue Router, Vuex). I would recommend Vue for developers that are looking for a more flexible and beginner-friendly framework.
 
 ### Angular
-Angular has a robust ecosystem but is often seen as more complex than React or Vue. It’s popular among enterprise-level companies due to its full-featured framework. Google’s backing also gives Angular strong long-term support.
-
-Conclusion:
-
-**React**: Largest community, with an extensive ecosystem of tools.
+Angular has a robust ecosystem but seems to be more complex than React or Vue. It’s popular among enterprise-level companies due to its full-featured framework. Google’s backing also gives Angular strong long-term support.
 
 
-**Vue**: Growing fast, with strong official libraries.
-
-
-**Angular**: Stable, backed by Google, but has a steeper learning curve.
-
-Final Thoughts
+## Final Thoughts
 
 Each of these frameworks has its strengths and weaknesses. React is flexible and has a huge community but can require more configuration for larger apps. Vue offers an elegant and simple solution for both small and large projects with a natural syntax. Angular provides a complete solution out-of-the-box but can feel heavy for small apps.
 
 Ultimately, the right choice depends on the specific needs of your project. For smaller projects or developers who prefer flexibility, Vue or React might be the best choice. For large-scale applications with complex requirements, Angular is often the go-to solution.
 
 This blog post captures my experience building the same app across these three frameworks. Hopefully, this provides a clearer picture of which framework might suit your next project!
+
+### Terminology
+
+**Virtaul DOM**: The Virtual DOM (VDOM) is a lightweight, in-memory representation of the real DOM (Document Object Model). It is a key concept in modern JavaScript libraries and frameworks like React and Vue, which use it to optimize and enhance the performance of web applications.
