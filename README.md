@@ -617,28 +617,28 @@ This blog post captures my experience building the same app across these three f
 
 ## Key Terms and Concepts
 
-**Virtaul DOM**: Is a lightweight, in-memory representation of the real DOM (Document Object Model). It is a key concept in modern JavaScript libraries and frameworks like React and Vue, which use it to optimize and enhance the performance of web applications.
+***Virtaul DOM***: Is a lightweight, in-memory representation of the real DOM (Document Object Model). It is a key concept in modern JavaScript libraries and frameworks like React and Vue, which use it to optimize and enhance the performance of web applications.
 
-**JSX**: Stands for **JavaScript XML**, and it is a syntax extension for JavaScript used in React. It allows developers to write HTML-like code directly within JavaScript, which React then transforms into JavaScript for rendering in the DOM.
+***JSX***: Stands for **JavaScript XML**, and it is a syntax extension for JavaScript used in React. It allows developers to write HTML-like code directly within JavaScript, which React then transforms into JavaScript for rendering in the DOM.
 
-**Reactivity System**: A system where changes to the application’s state automatically trigger updates to the UI. In Vue, this is achieved through reactive properties that track dependencies and update the DOM as needed.
+***Reactivity System***: A system where changes to the application’s state automatically trigger updates to the UI. In Vue, this is achieved through reactive properties that track dependencies and update the DOM as needed.
 
-**Two-Way Data Binding**: A feature in Angular (and Vue with ```v-model```) where changes in the UI (such as input fields) automatically update the model, and changes in the model update the UI, keeping them in sync.
+***Two-Way Data Binding***: A feature in Angular (and Vue with ```v-model```) where changes in the UI (such as input fields) automatically update the model, and changes in the model update the UI, keeping them in sync.
 
-**State Management**: Refers to how the application stores and manages the data that components need. In React, state is managed locally using hooks like useState, or globally with libraries like Redux or Context API. In Vue, this can be done using Vuex, and in Angular, state management can be handled with services or with NgRx for more complex cases.
+***State Management***: Refers to how the application stores and manages the data that components need. In React, state is managed locally using hooks like useState, or globally with libraries like Redux or Context API. In Vue, this can be done using Vuex, and in Angular, state management can be handled with services or with NgRx for more complex cases.
 
-**Hooks** (React): Are special functions introduced in React 16.8 that let you use state and other React features in functional components. Examples include useState (for managing state) and useEffect (for managing side effects).
+***Hooks*** (React): Are special functions introduced in React 16.8 that let you use state and other React features in functional components. Examples include useState (for managing state) and useEffect (for managing side effects).
 
-**Single File Component (SFC)** (Vue): A structure encapsulates the template (HTML), logic (JavaScript), and styles (CSS) in one .vue file, making it easy to manage and maintain components in one place.
+***Single File Component (SFC)*** (Vue): A structure encapsulates the template (HTML), logic (JavaScript), and styles (CSS) in one .vue file, making it easy to manage and maintain components in one place.
 
-**NgRx** (Angular): Is a state management library for Angular based on the Redux pattern. It helps manage and centralize application state, making state changes predictable and improving the ability to handle complex data flows.
+***NgRx*** (Angular): Is a state management library for Angular based on the Redux pattern. It helps manage and centralize application state, making state changes predictable and improving the ability to handle complex data flows.
 
-**Tree Shaking**: A technique used by JavaScript bundlers like Webpack to eliminate unused code from the final bundle, reducing the size of the application and improving performance.
+***Tree Shaking***: A technique used by JavaScript bundlers like Webpack to eliminate unused code from the final bundle, reducing the size of the application and improving performance.
 
-**Ahead-of-Time (AOT) Compilation**: Is a build optimization used in Angular, where templates and components are compiled during the build process rather than at runtime. This reduces runtime overhead and improves performance.
+***Ahead-of-Time (AOT) Compilation***: Is a build optimization used in Angular, where templates and components are compiled during the build process rather than at runtime. This reduces runtime overhead and improves performance.
 
-**Props** (React): In React, props (short for "properties") are the mechanism for passing data from a parent component to a child component. They are immutable, meaning they cannot be changed by the receiving component.
+***Props*** (React): In React, props (short for "properties") are the mechanism for passing data from a parent component to a child component. They are immutable, meaning they cannot be changed by the receiving component.
 
-**Directives** (Vue and Angular): Are special tokens in the template language that add behavior to the HTML elements. For example, v-model in Vue and *ngFor or *ngIf in Angular are directives that help bind data or control element rendering.
+***Directives*** (Vue and Angular): Are special tokens in the template language that add behavior to the HTML elements. For example, v-model in Vue and *ngFor or *ngIf in Angular are directives that help bind data or control element rendering.
 
-**NgModel** (Angular): Is a directive in Angular used for two-way data binding in form controls. It connects the UI with the model, allowing both to stay synchronized.
+***NgModel*** (Angular): Is a directive in Angular used for two-way data binding in form controls. It connects the UI with the model, allowing both to stay synchronized.
