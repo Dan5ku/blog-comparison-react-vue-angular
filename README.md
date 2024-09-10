@@ -87,11 +87,7 @@ This command scaffolds a React project with TypeScript configuration files and s
 
 ### Vue
 
-Vue 3 has native TypeScript support. When using the Vue CLI, you can select TypeScript during the setup process. This ensures that your Vue project is fully equipped for type-safe development from the start. To create a Vue project with TypeScript, use:
-
-```bash
-vue create vue-app
-```
+Vue 3 has native TypeScript support. When using the Vue CLI, you can select TypeScript during the setup process. This ensures that your Vue project is fully equipped for type-safe development from the start. To create a Vue project with TypeScript, select "Manually select features" and TypeScript.
 
 ![image](https://github.com/user-attachments/assets/792bc9f3-5c5a-4d91-a156-43ed5f107675)
 
