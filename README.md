@@ -73,7 +73,7 @@ It generates a project structure with everything included—routing, state manag
 
 ## 1.5 TypeScript support
 
-Since TypeScript is becoming increasingly popular and widely adopted in modern development, I wanted to highlight how each framework handles TypeScript integration and the differences you might encounter when using it.
+Since TypeScript is becoming increasingly popular and widely adopted in modern development, I wanted to highlight how each framework handles TypeScript integration and the differences you might encounter when using it. However, it's important to note that in this comparison, I didn't write the React and Vue applications in TypeScript. Instead, I kept them in JavaScript to maintain simplicity and focus on the core features of each framework. Despite that, both React and Vue offer excellent support for TypeScript and can be easily integrated if needed.
 
 ### React
 
